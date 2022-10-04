@@ -1,0 +1,4 @@
+database = jdbc:mysql://localhost:3306/
+username = andreip
+password = andreip
+database_name = brun_games
