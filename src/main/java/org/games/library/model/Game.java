@@ -1,98 +1,68 @@
 package org.games.library.model;
 
-import java.util.Date;
-
 public class Game {
-    private long id;
-    private String name, description, priceType, gameGenre;
-    private float price;
-    private boolean isChildFriendly;
-    private Date creationDate, updateDate;
 
-//    Game(long id, String name, String description, float price, String priceType, String gameGenre, boolean isChildFriendly, LocalDateTime creationDate, LocalDateTime updateDate) {
-//        setID(id);
-//        setName(name);
-//        setDescription(description);
-//        setPrice(price);
-//        setPriceType(priceType);
-//        setGameGenre(gameGenre);
-//        setChildFriendly(isChildFriendly);
-//        setCreationDate(creationDate);
-//        setUpdateDate(updateDate);
-//    }
+    private final String name, description, priceType, gameGenre;
+    private final float price;
+    private final int isChildFriendly;
 
-    public long getID() {
-        return this.id;
+    private Game(GameBuilder builder) {
+        this.name = builder.name;
+        this.description = builder.description;
+        this.price = builder.price;
+        this.gameGenre = builder.gameGenre;
+        this.isChildFriendly = builder.isChildFriendly;
+        if(this.price <= 10)
+            this.priceType = "CHEAP";
+        else if(this.price <= 30)
+            this.priceType = "REGULAR";
+        else
+            this.priceType = "EXPENSIVE";
     }
 
     public String getName() {
-        return this.name;
+        return name;
     }
-
     public String getDescription() {
-        return this.description;
+        return description;
     }
-
     public String getPriceType() {
-        return this.priceType;
+        return priceType;
     }
-
     public String getGameGenre() {
-        return this.gameGenre;
+        return gameGenre;
     }
-
     public float getPrice() {
-        return this.price;
+        return price;
+    }
+    public int getIsChildFriendly() {
+        return isChildFriendly;
     }
 
-    public String getChildFriendly() {
-        if (isChildFriendly)
-            return "Yes";
-        else
-            return "No";
+
+    public static class GameBuilder
+    {
+        private final String name, description;
+        private final float price;
+        private String gameGenre;
+        private int isChildFriendly;
+
+        public GameBuilder(String name, String description, float price) {
+            this.name = name;
+            this.description = description;
+            this.price = price;
+        }
+        public GameBuilder gameGenre(String gameGenre) {
+            this.gameGenre = gameGenre;
+            return this;
+        }
+        public GameBuilder isChildFriendly(int isChildFriendly) {
+            this.isChildFriendly = isChildFriendly;
+            return this;
+        }
+        public Game build() {
+            return new Game(this);
+        }
     }
 
-    public Date getCreationDate() {
-        return this.creationDate;
-    }
-
-    public Date getUpdateDate() {
-        return this.updateDate;
-    }
-
-    public void setID(long id) {
-        this.id = id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setPriceType(String priceType) {
-        this.priceType = priceType;
-    }
-
-    public void setGameGenre(String gameGenre) {
-        this.gameGenre = gameGenre;
-    }
-
-    public void setPrice(float price) {
-        this.price = price;
-    }
-
-    public void setChildFriendly(boolean isChildFriendly) {
-        this.isChildFriendly = isChildFriendly;
-    }
-
-    public void setCreationDate(Date date) {
-        this.creationDate = date;
-    }
-
-    public void setUpdateDate(Date date) {
-        this.updateDate = date;
-    }
 }

@@ -3,11 +3,12 @@ package org.games.library;
 
 import org.games.library.database.DatabaseServiceImplementation;
 
-import javax.swing.*;
-import java.sql.SQLException;
+import java.util.Scanner;
 
 public class MainApp {
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
 
         DatabaseServiceImplementation db = new DatabaseServiceImplementation();
 
@@ -15,27 +16,25 @@ public class MainApp {
 
         String choice;
         boolean quit = false;
-        do {
+        while(!quit) {
             //Choosing an option
-            choice = JOptionPane.showInputDialog("You have the following options:\n"+
-                    "1. Add a game into the database\n"+
-                    "2. Show a game knowing it's ID and it's name\n"+
-                    "3. Quit"
-                    );
+            System.out.println("""
+                    Please choose:
+                    1. Add a new game to the library
+                    2. Show a game by its name or id
+                    3. Quit""");
+            choice = scanner.nextLine();
 
-            switch (choice) {
-                case "1":
-                    db.addGame();
-                    break;
-                case "2":
-                    db.showGame();
-                    break;
-                case "3":
+            switch (choice.charAt(0)) {
+                case '1' -> db.addGame();
+                case '2' -> db.showGame();
+                case '3' -> {
+                    System.out.println("Good bye!");
                     quit = true;
-                    JOptionPane.showMessageDialog(null,"Have a nice day!");
-                    break;
+                }
+                default -> System.out.println("Invalid choice, please try again.");
             }
-        } while (!quit);
+        }
 
         db.closeConnection();
     }

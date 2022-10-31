@@ -9,7 +9,7 @@ CREATE TABLE `games`(
 	`id` bigint(11) NOT NULL AUTO_INCREMENT,
     `name` varchar(50) NOT NULL UNIQUE,
     `description` varchar(200) NOT NULL,
-    `price` float unsigned NOT NULL CHECK(price > 0),
+    `price` float unsigned NOT NULL CHECK(price >= 0),
     `price_type` varchar(10) NOT NULL,
     CONSTRAINT CHECK_PRICE_TYPE CHECK(
 		price_type IN('CHEAP', 'REGULAR', 'EXPENSIVE')
